@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title Книжковий магазин Єлизавети
+    link(rel="icon", href="/favicon.ico", type="image/x-icon")
+    style.
+      .dark { background: #333; color: white; }
+      .light { background: #fff; color: black; }
+  body(class=theme)
+    h1 Вітаю у моєму магазині!
+    p Поточна тема: #{theme}
+    a(href="/set-theme/light") Світла тема 
+    |  |  
+    a(href="/set-theme/dark") Темна тема
