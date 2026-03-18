@@ -4,13 +4,14 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'your_secret_key';
 const app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 app.get('/', (req, res) => {
@@ -24,7 +25,7 @@ app.get('/set-theme/:theme', (req, res) => {
   res.redirect('/');
 });
 
-app.post('/login', (req, res) => {
+app.get('/login', (req, res) => {
   const user = {id: 1, username: 'Yelyzaveta'};
   const token = jwt.sign(user, SECRET_KEY, { expiresIn: '1h' });
   res.cookie('token', token, { httpOnly: true,secure: false });
