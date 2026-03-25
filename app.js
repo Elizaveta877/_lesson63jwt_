@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
 });
 
 // registration
-app.get('/register', (req, res) => {
-  const { username, password } = req.query;
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ message: 'Username and password are required' });
   }
@@ -36,9 +36,8 @@ users.push({ username, password });
 res.status(201).json({ message: 'User registered successfully' });
 });
 
-
-app.get('/login', (req, res) => {
-  const { username, password } = req.query;
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
   const user = users.find(user => user.username === username && user.password === password);
   if (!user) {
     return res.status(401).json({ message: 'Invalid credentials' });
@@ -55,13 +54,7 @@ app.get('/set-theme/:theme', (req, res) => {
   res.redirect('/');
 });
 
-app.get('/login', (req, res) => {
-  const user = {id: 1, username: 'Yelyzaveta'};
-  const token = jwt.sign(user, SECRET_KEY, { expiresIn: '1h' });
-  res.cookie('token', token, { httpOnly: true,secure: false });
-  res.json({ message: 'Logged in successfully' });
 
-});
 
 const authenticateJWT = (req, res, next) => {
   const token = req.cookies.token;
